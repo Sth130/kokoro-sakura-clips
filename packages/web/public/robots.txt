@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kokoro-sakura-clips-web.vercel.app/sitemap.xml
