@@ -1,4 +1,7 @@
 {
+  "buildCommand": "npx vite build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/((?!assets|kokoro-images|favicon|og-).*)", "destination": "/index.html" }
