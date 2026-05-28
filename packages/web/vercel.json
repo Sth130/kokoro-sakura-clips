@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npx vite build",
-  "installCommand": "npm install",
+  "installCommand": "bun install --no-save",
+  "buildCommand": "bunx vite build",
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },

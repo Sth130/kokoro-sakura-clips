@@ -11,3 +11,4 @@ packages/mobile/
 task.md
 design.md
 *.zip
+.env.vercel

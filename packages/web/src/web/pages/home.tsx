@@ -242,7 +242,7 @@ function HeroSection() {
             最新動画
           </a>
           <a
-            href="https://x.com/intent/tweet?text=DOA5LR%20%E3%81%93%E3%81%93%E3%82%8D%E5%B0%82%E9%96%80%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB%E3%80%8C%E3%81%93%E3%81%93%E3%82%8D%E6%A1%9C%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9%E3%80%8D&url=https%3A%2F%2Fkokoro-sakura-clips.runable.run%2F"
+            href="https://x.com/intent/tweet?text=DOA5LR%20%E3%81%93%E3%81%93%E3%82%8D%E5%B0%82%E9%96%80%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB%E3%80%8C%E3%81%93%E3%81%93%E3%82%8D%E6%A1%9C%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9%E3%80%8D&url=https%3A%2F%2Fkokoro-sakura-clips-web.vercel.app%2F"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 border border-[#2D2D2D]/20 text-[#2D2D2D]/50 rounded-full text-sm font-medium hover:border-[#D4627A]/40 hover:text-[#D4627A] transition-all"
@@ -759,7 +759,7 @@ function SubscribeCTA() {
               チャンネル登録する
             </a>
             <a
-              href="https://x.com/intent/tweet?text=DOA5LR%20%E3%81%93%E3%81%93%E3%82%8D%E5%B0%82%E9%96%80%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB%E3%80%8C%E3%81%93%E3%81%93%E3%82%8D%E6%A1%9C%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9%E3%80%8D&url=https%3A%2F%2Fkokoro-sakura-clips.runable.run%2F"
+              href="https://x.com/intent/tweet?text=DOA5LR%20%E3%81%93%E3%81%93%E3%82%8D%E5%B0%82%E9%96%80%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB%E3%80%8C%E3%81%93%E3%81%93%E3%82%8D%E6%A1%9C%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9%E3%80%8D&url=https%3A%2F%2Fkokoro-sakura-clips-web.vercel.app%2F"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 border border-white/30 text-white rounded-full text-sm hover:bg-white/10 transition-all"
