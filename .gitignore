@@ -1,0 +1,13 @@
+node_modules
+dist
+.turbo
+*.db
+*.db-journal
+.env
+.env.local
+.vercel
+packages/desktop/
+packages/mobile/
+task.md
+design.md
+*.zip

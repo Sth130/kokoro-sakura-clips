@@ -1,0 +1,15 @@
+{
+  "buildCommand": "cd packages/web && npx vite build",
+  "outputDirectory": "packages/web/dist",
+  "installCommand": "bun install",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/((?!assets|kokoro-images|favicon|og-).*)", "destination": "/index.html" }
+  ],
+  "functions": {
+    "packages/web/api/index.ts": {
+      "runtime": "@vercel/node@3"
+    }
+  }
+}
