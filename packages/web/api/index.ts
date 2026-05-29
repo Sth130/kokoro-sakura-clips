@@ -41,6 +41,43 @@ const client = createClient({
 });
 const db = drizzle(client, { schema: { communityPosts, communityReplies } });
 
+// ─── Spam Filter ───
+const NG_WORDS = [
+  // 広告・スパム系
+  "http://", "bit.ly", "goo.gl", "tinyurl", "副業", "稼げる", "稼ぎ方",
+  "出会い系", "アダルト", "カジノ", "パチンコ必勝", "情報商材",
+  "LINE追加", "LINE@", "DMください", "フォロバ100",
+  // 英語スパム
+  "buy now", "click here", "free money", "crypto airdrop", "earn money",
+];
+
+const RATE_LIMIT_MAP = new Map<string, number[]>();
+const RATE_LIMIT_WINDOW = 60_000; // 1分
+const RATE_LIMIT_MAX = 5; // 1分に5回まで
+
+function isSpam(text: string): boolean {
+  const lower = text.toLowerCase();
+  return NG_WORDS.some((w) => lower.includes(w.toLowerCase()));
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = RATE_LIMIT_MAP.get(ip) || [];
+  const recent = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW);
+  if (recent.length >= RATE_LIMIT_MAX) return true;
+  recent.push(now);
+  RATE_LIMIT_MAP.set(ip, recent);
+  return false;
+}
+
+function getClientIP(c: any): string {
+  return (
+    c.req.header("x-forwarded-for")?.split(",")[0]?.trim() ||
+    c.req.header("x-real-ip") ||
+    "unknown"
+  );
+}
+
 // ─── App ───
 const app = new Hono()
   .basePath("/api")
@@ -73,6 +110,11 @@ const app = new Hono()
 
   // Create a new post
   .post("/community", async (c) => {
+    const ip = getClientIP(c);
+    if (isRateLimited(ip)) {
+      return c.json({ error: "投稿が多すぎます。少し待ってからお試しください" }, 429);
+    }
+
     const body = await c.req.json<{
       nickname?: string;
       content: string;
@@ -88,6 +130,9 @@ const app = new Hono()
     }
     if (body.imageData && body.imageData.length > 2_800_000) {
       return c.json({ error: "画像は2MB以内にしてください" }, 400);
+    }
+    if (isSpam(body.content) || (body.nickname && isSpam(body.nickname))) {
+      return c.json({ error: "不適切な内容が含まれています" }, 400);
     }
 
     const [post] = await db
@@ -130,6 +175,11 @@ const app = new Hono()
 
   // Create a reply
   .post("/community/:id/replies", async (c) => {
+    const ip = getClientIP(c);
+    if (isRateLimited(ip)) {
+      return c.json({ error: "投稿が多すぎます。少し待ってからお試しください" }, 429);
+    }
+
     const postId = Number(c.req.param("id"));
     const body = await c.req.json<{
       nickname?: string;
@@ -141,6 +191,9 @@ const app = new Hono()
     }
     if (body.content.length > 500) {
       return c.json({ error: "500文字以内で入力してください" }, 400);
+    }
+    if (isSpam(body.content) || (body.nickname && isSpam(body.nickname))) {
+      return c.json({ error: "不適切な内容が含まれています" }, 400);
     }
 
     const [post] = await db
